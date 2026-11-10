@@ -1,0 +1,6 @@
+{
+  "name": "IP Logístics | Ibáñez Pascual Logístics",
+  "description": "Plataforma web corporativa i d'e-commerce per a logística internacional i comerç exterior d'IP Logístics (Ibáñez Pascual Logístics).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
