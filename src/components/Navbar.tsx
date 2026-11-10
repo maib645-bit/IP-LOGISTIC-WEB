@@ -40,7 +40,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Strict Top Bar Contract: 3 Zones separated by gap-8 */}
         <div className="flex items-center justify-between gap-8 h-20">
           
-          {/* Zone 1: Brand Element with uploaded IP Logistics logo */}
+          {/* Zone 1: Brand Element with uploaded IP Logistics logo (symbol only, no bottom text) */}
           <a
             href="#inici"
             onClick={(e) => {
@@ -51,9 +51,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             aria-label="IP Logístics - Ibáñez Pascual Logístics"
           >
             <img
-              src="/assets/aistudio/watermarked_img_14908228590763494883_d95b806d.jpg"
-              alt="IP Logístics Logo"
-              className="h-12 w-12 object-contain mix-blend-multiply transition-transform group-hover:scale-105"
+              src="/assets/aistudio/ip_logistics_symbol_transparent.png"
+              alt="IP Logístics Símbol"
+              className="h-11 w-auto max-w-[50px] object-contain transition-transform group-hover:scale-105"
             />
             <div className="flex flex-col text-left">
               <span className="text-lg font-bold tracking-tight text-neutral-950 leading-none group-hover:text-neutral-800 transition-colors">
@@ -102,7 +102,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                 title="Traduir web"
               >
                 <Globe className="w-3.5 h-3.5 text-neutral-800" aria-hidden="true" />
-                <span className="text-[11px] font-bold text-orange-950">{currentLangObj?.flag}</span>
+                <span className="text-[11px] font-mono font-bold uppercase text-orange-950 px-1.5 py-0.5 rounded bg-orange-200/80 border border-orange-300/60">
+                  {currentLanguage}
+                </span>
                 <span className="hidden xl:inline text-xs">{t.translate}</span>
               </button>
             )}
@@ -122,10 +124,11 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 type="button"
                 onClick={onOpenTranslate}
-                className="p-2 rounded-lg text-neutral-800 bg-orange-100 border border-orange-300 focus:outline-none text-xs font-bold"
+                className="inline-flex items-center gap-1 px-2.5 py-2 rounded-lg text-neutral-800 bg-orange-100 border border-orange-300 focus:outline-none text-xs font-mono font-bold uppercase"
                 aria-label="Traduir web"
               >
-                <span className="text-base leading-none">{currentLangObj?.flag}</span>
+                <Globe className="w-3.5 h-3.5 text-neutral-800" aria-hidden="true" />
+                <span>{currentLanguage}</span>
               </button>
             )}
             <button
@@ -179,7 +182,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="w-full flex items-center justify-center gap-2 py-2.5 px-4 text-xs font-semibold text-neutral-800 bg-orange-100 hover:bg-orange-200 border border-orange-300 rounded-lg transition-colors"
               >
                 <Globe className="w-4 h-4 text-neutral-800" aria-hidden="true" />
-                <span>{t.translate}: {currentLangObj?.flag} {currentLangObj?.label}</span>
+                <span>{t.translate}: {currentLangObj?.label} ({currentLanguage.toUpperCase()})</span>
               </button>
             )}
 

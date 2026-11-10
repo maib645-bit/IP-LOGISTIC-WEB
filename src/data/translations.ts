@@ -4,16 +4,15 @@ export interface LanguageOption {
   code: Language;
   label: string;
   nativeLabel: string;
-  flag: string;
 }
 
 export const LANGUAGE_OPTIONS: LanguageOption[] = [
-  { code: 'ca', label: 'Català', nativeLabel: 'Català (Original)', flag: '🏴' },
-  { code: 'es', label: 'Castellà', nativeLabel: 'Español (Castellano)', flag: '🇪🇸' },
-  { code: 'en', label: 'Anglès', nativeLabel: 'English (International)', flag: '🇬🇧' },
-  { code: 'fr', label: 'Francès', nativeLabel: 'Français (Commerce Extérieur)', flag: '🇫🇷' },
-  { code: 'de', label: 'Alemany', nativeLabel: 'Deutsch (Spedition & Zoll)', flag: '🇩🇪' },
-  { code: 'zh', label: 'Xinès', nativeLabel: '中文 (国际物流与清关)', flag: '🇨🇳' },
+  { code: 'ca', label: 'Català', nativeLabel: 'Català (Original)' },
+  { code: 'es', label: 'Castellà', nativeLabel: 'Español (Castellano)' },
+  { code: 'en', label: 'Anglès', nativeLabel: 'English (International)' },
+  { code: 'fr', label: 'Francès', nativeLabel: 'Français (Commerce Extérieur)' },
+  { code: 'de', label: 'Alemany', nativeLabel: 'Deutsch (Spedition & Zoll)' },
+  { code: 'zh', label: 'Xinès', nativeLabel: '中文 (国际物流与清关)' },
 ];
 
 export const TRANSLATIONS: Record<Language, {

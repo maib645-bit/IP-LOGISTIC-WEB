@@ -60,10 +60,10 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Brand & Corporate Overview (2 cols) */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-white p-1 flex items-center justify-center shrink-0 shadow-sm border border-neutral-700">
+              <div className="w-10 h-10 rounded-lg bg-neutral-900 p-1 flex items-center justify-center shrink-0 shadow-sm border border-neutral-800">
                 <img
-                  src="/assets/aistudio/watermarked_img_14908228590763494883_d95b806d.jpg"
-                  alt="IP Logístics Logo"
+                  src="/assets/aistudio/ip_logistics_symbol_transparent.png"
+                  alt="IP Logístics Símbol"
                   className="w-full h-full object-contain"
                 />
               </div>
@@ -96,8 +96,8 @@ export const Footer: React.FC<FooterProps> = ({
               >
                 <Globe className="w-4 h-4 text-orange-400 shrink-0" aria-hidden="true" />
                 <span>{t.translateButton}</span>
-                <span className="ml-1 px-1.5 py-0.5 text-[10px] uppercase font-bold tracking-wider bg-orange-500/20 text-orange-300 rounded border border-orange-500/30">
-                  {currentLangObj?.flag} {currentLanguage.toUpperCase()}
+                <span className="ml-1 px-1.5 py-0.5 text-[10px] uppercase font-mono font-bold tracking-wider bg-orange-500/20 text-orange-300 rounded border border-orange-500/30">
+                  {currentLanguage.toUpperCase()}
                 </span>
               </button>
             </div>

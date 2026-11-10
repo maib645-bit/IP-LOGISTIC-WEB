@@ -91,8 +91,14 @@ export const LanguageSelectorModal: React.FC<LanguageSelectorModalProps> = ({
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-2xl shrink-0" role="img" aria-label={option.label}>
-                    {option.flag}
+                  <span
+                    className={`w-9 h-9 rounded-lg flex items-center justify-center text-xs font-mono font-bold uppercase shrink-0 border ${
+                      isSelected
+                        ? 'bg-orange-400 text-neutral-950 border-orange-300 font-extrabold'
+                        : 'bg-orange-100 text-neutral-800 border-orange-200'
+                    }`}
+                  >
+                    {option.code}
                   </span>
                   <div>
                     <div className="text-sm font-bold tracking-tight">
