@@ -24,6 +24,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const navLinks = [
     { id: 'inici', label: t.inici },
     { id: 'serveis', label: t.serveis },
+    { id: 'tracking', label: t.tracking },
     { id: 'quisom', label: t.quisom },
     { id: 'blog', label: t.blog },
     { id: 'contacte', label: t.contacte },
@@ -67,7 +68,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Zone 2: Clean single-line text navigation links */}
           <nav
-            className="hidden md:flex items-center gap-7 text-sm font-medium text-neutral-600"
+            className="hidden md:flex items-center gap-4 lg:gap-6 text-sm font-medium text-neutral-600"
             aria-label="Navegació principal"
           >
             {navLinks.map((link) => {

@@ -11,12 +11,20 @@ import { LegalModal } from './components/LegalModal';
 import { ServiceDetailModal } from './components/ServiceDetailModal';
 import { BlogDetailModal } from './components/BlogDetailModal';
 import { LanguageSelectorModal } from './components/LanguageSelectorModal';
+import TrackingPage from './app/tracking/page';
 import { SERVICES_CATALOG, BLOG_POSTS } from './data/logisticsData';
 import { LogisticsService, BlogPost, LegalDocType } from './types/logistics';
 import { Language } from './data/translations';
 
 export default function App() {
-  const [activeSection, setActiveSection] = useState('inici');
+  const isInitialTrackingRoute =
+    typeof window !== 'undefined' &&
+    (window.location.pathname === '/tracking' || window.location.pathname.startsWith('/tracking/'));
+
+  const [activePage, setActivePage] = useState<'home' | 'tracking'>(
+    isInitialTrackingRoute ? 'tracking' : 'home'
+  );
+  const [activeSection, setActiveSection] = useState(isInitialTrackingRoute ? 'tracking' : 'inici');
   
   // Multilingual state with local persistence
   const [currentLanguage, setCurrentLanguage] = useState<Language>(() => {
@@ -50,8 +58,48 @@ export default function App() {
   const [prefilledService, setPrefilledService] = useState('');
   const [prefilledMessage, setPrefilledMessage] = useState('');
 
-  // Smooth scroll handler
+  // Sync browser back/forward navigation between / and /tracking
+  useEffect(() => {
+    const handlePopState = () => {
+      const onTracking =
+        window.location.pathname === '/tracking' || window.location.pathname.startsWith('/tracking/');
+      setActivePage(onTracking ? 'tracking' : 'home');
+      setActiveSection(onTracking ? 'tracking' : 'inici');
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Smooth scroll / route handler
   const handleNavigate = (sectionId: string) => {
+    if (sectionId === 'tracking') {
+      setActivePage('tracking');
+      setActiveSection('tracking');
+      if (window.location.pathname !== '/tracking') {
+        window.history.pushState({}, '', '/tracking');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (activePage !== 'home') {
+      setActivePage('home');
+      setActiveSection(sectionId);
+      if (window.location.pathname !== '/') {
+        window.history.pushState({}, '', '/');
+      }
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 60);
+      return;
+    }
+
     setActiveSection(sectionId);
     const element = document.getElementById(sectionId);
     if (element) {
@@ -61,17 +109,11 @@ export default function App() {
 
   // Direct CTA handlers
   const handleRequestQuote = () => {
-    const contactSection = document.getElementById('contacte');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    handleNavigate('contacte');
   };
 
   const handleServicesClick = () => {
-    const servicesSection = document.getElementById('serveis');
-    if (servicesSection) {
-      servicesSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    handleNavigate('serveis');
   };
 
   const handleRequestQuoteForService = (service: LogisticsService) => {
@@ -90,6 +132,8 @@ export default function App() {
 
   // Intersection observer to automatically update active navbar tab on scroll
   useEffect(() => {
+    if (activePage !== 'home') return;
+
     const sections = ['inici', 'serveis', 'quisom', 'blog', 'contacte'];
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 200;
@@ -108,7 +152,7 @@ export default function App() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [activePage]);
 
   return (
     <div className="min-h-screen flex flex-col bg-orange-50 text-neutral-900 font-sans">
@@ -122,45 +166,49 @@ export default function App() {
         onOpenTranslate={() => setIsTranslateModalOpen(true)}
       />
 
-      {/* Main Content Sections */}
+      {/* Main Content */}
       <main className="flex-1">
-        
-        {/* 2. Hero Section (Portada amb titular potent i dos botons CTA) */}
-        <Hero
-          onQuoteClick={handleRequestQuote}
-          onServicesClick={handleServicesClick}
-          currentLanguage={currentLanguage}
-        />
+        {activePage === 'tracking' ? (
+          <TrackingPage onBackHome={() => handleNavigate('inici')} />
+        ) : (
+          <>
+            {/* 2. Hero Section (Portada amb titular potent i dos botons CTA) */}
+            <Hero
+              onQuoteClick={handleRequestQuote}
+              onServicesClick={handleServicesClick}
+              currentLanguage={currentLanguage}
+            />
 
-        {/* 3. Secció de Serveis / Catàleg (3 targetes detallades amb imatges i fitxes) */}
-        <ServicesSection
-          services={SERVICES_CATALOG}
-          onSelectService={(service) => setSelectedService(service)}
-          onRequestQuoteForService={handleRequestQuoteForService}
-          currentLanguage={currentLanguage}
-        />
+            {/* 3. Secció de Serveis / Catàleg (3 targetes detallades amb imatges i fitxes) */}
+            <ServicesSection
+              services={SERVICES_CATALOG}
+              onSelectService={(service) => setSelectedService(service)}
+              onRequestQuoteForService={handleRequestQuoteForService}
+              currentLanguage={currentLanguage}
+            />
 
-        {/* E-Commerce & B2B Logistics Quote Estimator */}
-        <QuoteCalculator
-          onTransferToContact={handleTransferFromCalculator}
-        />
+            {/* E-Commerce & B2B Logistics Quote Estimator */}
+            <QuoteCalculator
+              onTransferToContact={handleTransferFromCalculator}
+            />
 
-        {/* 4. Secció Qui Som (Ibáñez Pascual Logístics: trajectòria, OEA, valors) */}
-        <AboutSection currentLanguage={currentLanguage} />
+            {/* 4. Secció Qui Som (Ibáñez Pascual Logístics: trajectòria, OEA, valors) */}
+            <AboutSection currentLanguage={currentLanguage} />
 
-        {/* 5. Secció Blog (Articles especialitzats en logística i comerç exterior) */}
-        <BlogSection
-          posts={BLOG_POSTS}
-          onReadPost={(post) => setSelectedPost(post)}
-        />
+            {/* 5. Secció Blog (Articles especialitzats en logística i comerç exterior) */}
+            <BlogSection
+              posts={BLOG_POSTS}
+              onReadPost={(post) => setSelectedPost(post)}
+            />
 
-        {/* 6. Pàgina / Secció de Contacte (Dades d'oficina + formulari validat) */}
-        <ContactSection
-          initialServiceInterest={prefilledService}
-          initialMessage={prefilledMessage}
-          onOpenLegal={(type) => setActiveLegalDoc(type)}
-        />
-
+            {/* 6. Pàgina / Secció de Contacte (Dades d'oficina + formulari validat) */}
+            <ContactSection
+              initialServiceInterest={prefilledService}
+              initialMessage={prefilledMessage}
+              onOpenLegal={(type) => setActiveLegalDoc(type)}
+            />
+          </>
+        )}
       </main>
 
       {/* 7. Footer Corporatiu Fosc amb avís d'àmbit estudiantil, enllaços legals i botó de traducció */}

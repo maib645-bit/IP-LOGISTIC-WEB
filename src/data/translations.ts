@@ -21,6 +21,7 @@ export const TRANSLATIONS: Record<Language, {
     serveis: string;
     quisom: string;
     blog: string;
+    tracking: string;
     contacte: string;
     quoteBtn: string;
     translate: string;
@@ -167,6 +168,7 @@ export const TRANSLATIONS: Record<Language, {
       serveis: 'Serveis/Catàleg',
       quisom: 'Qui Som',
       blog: 'Blog',
+      tracking: 'Seguiment',
       contacte: 'Contacte',
       quoteBtn: 'Demanar Cotització',
       translate: 'Idioma',
@@ -313,6 +315,7 @@ export const TRANSLATIONS: Record<Language, {
       serveis: 'Servicios/Catálogo',
       quisom: 'Quiénes Somos',
       blog: 'Blog',
+      tracking: 'Seguimiento',
       contacte: 'Contacto',
       quoteBtn: 'Pedir Cotización',
       translate: 'Idioma',
@@ -459,6 +462,7 @@ export const TRANSLATIONS: Record<Language, {
       serveis: 'Services/Catalog',
       quisom: 'About Us',
       blog: 'Blog',
+      tracking: 'Tracking',
       contacte: 'Contact',
       quoteBtn: 'Request Quote',
       translate: 'Language',
@@ -605,6 +609,7 @@ export const TRANSLATIONS: Record<Language, {
       serveis: 'Services/Catalogue',
       quisom: 'Qui Sommes-Nous',
       blog: 'Blog',
+      tracking: 'Suivi',
       contacte: 'Contact',
       quoteBtn: 'Demander un Devis',
       translate: 'Langue',
@@ -751,6 +756,7 @@ export const TRANSLATIONS: Record<Language, {
       serveis: 'Leistungen/Katalog',
       quisom: 'Über Uns',
       blog: 'Blog',
+      tracking: 'Tracking',
       contacte: 'Kontakt',
       quoteBtn: 'Angebot Anfordern',
       translate: 'Sprache',
@@ -897,6 +903,7 @@ export const TRANSLATIONS: Record<Language, {
       serveis: '服务/目录',
       quisom: '关于我们',
       blog: '资讯',
+      tracking: '物流追踪',
       contacte: '联系我们',
       quoteBtn: '索取报价',
       translate: '语言',
